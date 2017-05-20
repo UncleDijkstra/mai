@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <iomanip>
 
+const double MAYBE = 3 + std::exp(-4);
+
 void classParsing(int argc, char const *argv[], std::string &inFilename,
                     std::string &statFilename, std::string &outFilename);
 void readOfStatistics(std::ifstream &stat,

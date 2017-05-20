@@ -52,7 +52,6 @@ void classification(std::ifstream &fin, std::ifstream &stat,
                             size_t &countOfAllUniqWords) {
     size_t nOfLines;
     std::string line;
-    std::string artName;
 
     readOfStatistics(stat, cloudOfTags, countOfAllArt, countOfAllUniqWords);
     while(fin.peek() != EOF) {
@@ -61,11 +60,6 @@ void classification(std::ifstream &fin, std::ifstream &stat,
 
         fin >> nOfLines;
         fin.get();
-
-        getline(fin, line);
-        addWordsInMap(mapOfWords, line);
-        artName = line;
-        --nOfLines;
 
         for(; nOfLines > 0; --nOfLines) {
             getline(fin, line);
@@ -96,7 +90,6 @@ void classification(std::ifstream &fin, std::ifstream &stat,
 
         /* check array begin*/
         // std::cout << "===========\n";
-        // std::cout << artName << "\n";
         // for(auto& i : finishHim) {
         //     std::cout << "probability = " << i.first << " % // tag = " << i.second << "\n";
         // }
@@ -107,14 +100,15 @@ void classification(std::ifstream &fin, std::ifstream &stat,
         // std::cout << "TOTAL = " << kek << "\n";
         /* check array end*/
 
-        fout << "Title: " << artName << "\nTags: ";
         /* out of res */
-        for(int i = 0; i < 3; ++i) {
-            auto tmp4 = --finishHim.end();
-            fout << tmp4->second;
-            i == 2 ? fout << "\n" : fout << ",";
+        auto tmp4 = (--finishHim.end());
+        fout << tmp4->second;
+        while(tmp4->first / (finishHim.end() - 2)->first < MAYBE) {
+            tmp4 = (finishHim.end() - 2);
+            fout << "," << tmp4->second;
             finishHim.pop_back();
         }
+        fout << "\n";
     }
 }
 
