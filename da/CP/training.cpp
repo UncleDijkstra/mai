@@ -2,26 +2,21 @@
 
 void countOfUniqInCurArt(const std::string& tmp,
                         std::unordered_map<std::string, size_t> &uniqTmp,
-                        std::unordered_set<std::string> &uniqAll) {
+                        std::unordered_set<std::string>& uniqAll) {
     uniqAll.insert(tmp);
     uniqTmp[tmp] += 1;
 }
 
-void addWord(const std::string &line,
-                std::unordered_map<std::string, size_t> &uniqTmp, 
-                size_t &countOfWordsInArt,
-                std::unordered_set<std::string> &uniqAll) {
+void addWord(const std::string& line,
+                std::unordered_map<std::string, size_t>& uniqTmp, 
+                size_t& countOfWordsInArt,
+                std::unordered_set<std::string>& uniqAll) {
     std::string tmp;
     for(size_t i = 0; i < line.size(); ++i) {
         if(isalpha(line[i])) {
             tmp += tolower(line[i]);
         } else {
             if(!tmp.empty()) {
-                countOfUniqInCurArt(tmp, uniqTmp, uniqAll);
-                ++countOfWordsInArt;
-            }
-            if(isGoodDelimiter(line[i])) {
-                tmp = line[i];
                 countOfUniqInCurArt(tmp, uniqTmp, uniqAll);
                 ++countOfWordsInArt;
             }
@@ -34,7 +29,7 @@ void addWord(const std::string &line,
     }
 }
 
-void parsingTags(std::vector<std::string> &vecOfTags, std::string &line) {
+void parsingTags(std::vector<std::string>& vecOfTags, std::string& line) {
     std::string tmp;
     line += ",";
     for(size_t i = 0; i < line.size(); ++i) {
@@ -47,9 +42,9 @@ void parsingTags(std::vector<std::string> &vecOfTags, std::string &line) {
     }
 }
 
-void addTag(const std::unordered_map<std::string, size_t> &uniqTmp, 
-            std::unordered_map<std::string, TTag> &cloudOfTags,
-            const std::string &curTag,
+void addTag(const std::unordered_map<std::string, size_t>& uniqTmp, 
+            std::unordered_map<std::string, TTag>& cloudOfTags,
+            const std::string& curTag,
             const size_t countOfWordsInArt) {
     auto iter = cloudOfTags.find(curTag);
     if(iter != cloudOfTags.end()) {
@@ -67,10 +62,10 @@ void addTag(const std::unordered_map<std::string, size_t> &uniqTmp,
     }
 }
 
-void collectOfStatistics(std::ifstream &fin,
-                            std::unordered_map<std::string, TTag> &cloudOfTags,
-                            size_t &countOfAllArt,
-                            size_t &countOfAllUniqWords) {
+void collectOfStatistics(std::ifstream& fin,
+                            std::unordered_map<std::string, TTag>& cloudOfTags,
+                            size_t& countOfAllArt,
+                            size_t& countOfAllUniqWords) {
     std::unordered_set<std::string> uniqAll;
     std::string tmp;
     std::string line;
@@ -98,7 +93,7 @@ void collectOfStatistics(std::ifstream &fin,
     countOfAllUniqWords = uniqAll.size();
 }
 
-void writeOfStatistics(std::ofstream &fout, const std::unordered_map<std::string, TTag> &cloudOfTags, 
+void writeOfStatistics(std::ofstream& fout, const std::unordered_map<std::string, TTag>& cloudOfTags, 
                             const size_t countOfAllArt, const size_t countOfAllUniqWords) {
     fout << countOfAllArt << "\n" << countOfAllUniqWords << "\n";
     for(auto& i : cloudOfTags) {

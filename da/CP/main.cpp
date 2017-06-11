@@ -2,9 +2,9 @@
 #include "training.hpp"
 #include "classifier.hpp"
 
-void Parsing(int argc, char const *argv[], std::string &inFilename,
-                                                std::string &statFilename,
-                                                std::string &outFilename);
+void Parsing(int argc, char const *argv[], std::string& inFilename,
+                                                std::string& statFilename,
+                                                std::string& outFilename);
 
 int main(int argc, char const *argv[]) {
     size_t countOfAllArt = 0;
@@ -35,9 +35,9 @@ int main(int argc, char const *argv[]) {
     return 0;
 }
 
-void Parsing(int argc, char const *argv[], std::string &inFilename,
-                                                std::string &statFilename,
-                                                std::string &outFilename) {
+void Parsing(int argc, char const *argv[], std::string& inFilename,
+                                                std::string& statFilename,
+                                                std::string& outFilename) {
     for(size_t i = 2; i < argc; ++i) {
         if(!strcmp(argv[i], "--input")) {
             inFilename = argv[++i];

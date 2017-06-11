@@ -10,10 +10,6 @@ void addWordsInMap(std::unordered_map<std::string, size_t>& mapOfWords,
             if(!tmp.empty()) {
                 mapOfWords[tmp] += 1;
             }
-            if(isGoodDelimiter(line[i])) {
-                tmp = line[i];
-                mapOfWords[tmp] += 1;
-            }
             tmp.clear();
         }
     }
@@ -22,11 +18,11 @@ void addWordsInMap(std::unordered_map<std::string, size_t>& mapOfWords,
     }
 }
 
-void classification(std::ifstream &fin, std::ifstream &stat,
-                            std::ofstream &fout,
-                            std::unordered_map<std::string, TTag> &cloudOfTags,
-                            size_t &countOfAllArt,
-                            size_t &countOfAllUniqWords) {
+void classification(std::ifstream& fin, std::ifstream& stat,
+                            std::ofstream& fout,
+                            std::unordered_map<std::string, TTag>& cloudOfTags,
+                            size_t& countOfAllArt,
+                            size_t& countOfAllUniqWords) {
     size_t nOfLines = 0;
     std::string line;
 
@@ -68,21 +64,19 @@ void classification(std::ifstream &fin, std::ifstream &stat,
         /* check array end*/
 
         /* out of res */
-        auto tmp4 = --finishHim.end();
-        fout << tmp4->second;
-        while(std::abs((finishHim.end() - 2)->first) - std::abs(tmp4->first) < MAYBE) {
-            tmp4 = finishHim.end() - 2;
-            fout << "," << tmp4->second;
+        fout << (--finishHim.end())->second;
+        while(std::abs((finishHim.end() - 2)->first) - std::abs((finishHim.end() - 1)->first) < MAYBE) {
+            fout << "," << (finishHim.end() - 2)->second;
             finishHim.pop_back();
         }
         fout << "\n";
     }
 }
 
-void readOfStatistics(std::ifstream &stat,
-                            std::unordered_map<std::string, TTag> &cloudOfTags,
-                            size_t &countOfAllArt,
-                            size_t &countOfAllUniqWords) {
+void readOfStatistics(std::ifstream& stat,
+                            std::unordered_map<std::string, TTag>& cloudOfTags,
+                            size_t& countOfAllArt,
+                            size_t& countOfAllUniqWords) {
     stat >> countOfAllArt >> countOfAllUniqWords;
 
     while(stat.peek() != EOF) {
@@ -90,8 +84,8 @@ void readOfStatistics(std::ifstream &stat,
     }
 }
 
-void createTag(std::ifstream &stat,
-                    std::unordered_map<std::string, TTag> &cloudOfTags) {
+void createTag(std::ifstream& stat,
+                    std::unordered_map<std::string, TTag>& cloudOfTags) {
     std::string line;
     std::string uniqWord;
     size_t amountOfMeetings = 0;

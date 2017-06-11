@@ -17,9 +17,4 @@ struct TTag {
     std::unordered_map<std::string, size_t> uniqWords;
 };
 
-inline bool isGoodDelimiter(const char tmp) {
-    return tmp == ';' || tmp == '{' || tmp == '}' 
-    || tmp == '<' || tmp == '>';
-}
-
 #endif
