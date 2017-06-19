@@ -13,7 +13,7 @@ int main(int argc, char const *argv[]) {
     std::string outFilename;
     std::string statFilename;
     std::unordered_map<std::string, TTag> cloudOfTags;
-    
+
     Parsing(argc, argv, inFilename, statFilename, outFilename);
     
     if(!strcmp(argv[1], "learn")) {

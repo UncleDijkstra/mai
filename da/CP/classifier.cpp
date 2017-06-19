@@ -57,10 +57,10 @@ void classification(std::ifstream& fin, std::ifstream& stat,
         std::sort(finishHim.begin(), finishHim.end());
 
         /* check array begin*/
-        // std::cout << "===========\n";
-        // for(auto& i : finishHim) {
-        //     std::cout << "probability = " << i.first << " % // tag = " << i.second << "\n";
-        // }
+        std::cout << "===========\n";
+        for(auto& i : finishHim) {
+            std::cout << "probability = " << i.first << " % // tag = " << i.second << "\n";
+        }
         /* check array end*/
 
         /* out of res */
