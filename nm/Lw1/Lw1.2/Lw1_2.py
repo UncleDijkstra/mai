@@ -23,7 +23,7 @@ def tma(matrix, d, shape, fl):
     for i in range(1, shape):
         p.append(-c[i] / (b[i] + a[i] * p[i - 1]))
         q.append((d[i] - a[i] * q[i - 1]) / (b[i] + a[i] * p[i - 1]))
-    for i in range(shape - 1, -1, -1):
+    for i in reversed(range(shape)):
         x[i] = p[i] * x[i + 1] + q[i]
     if fl:
         fl.write(f'a = {a}\nb = {b}\nc = {c}\nP = {p}\nQ = {q}\n')
