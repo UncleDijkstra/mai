@@ -34,12 +34,13 @@ class Matrix:
             h = self.make_householder(r[:, i], i)
             q = q @ h
             r = h @ r
-            with open(self.log_file, 'a') as f_log:
-                f_log.write(f'=============\n')
-                f_log.write(f'For i = {i}\n')
-                f_log.write(f'H:\n{h}\n')
-                f_log.write(f'Q:\n{h}\n')
-                f_log.write(f'R:\n{h}\n')
+            if self.log_file:
+                with open(self.log_file, 'a') as f_log:
+                    f_log.write(f'=============\n')
+                    f_log.write(f'For i = {i}\n')
+                    f_log.write(f'H:\n{h}\n')
+                    f_log.write(f'Q:\n{h}\n')
+                    f_log.write(f'R:\n{h}\n')
         return q, r
 
     def make_householder(self, a, k):
@@ -57,14 +58,15 @@ class Matrix:
             q, r = self.qr_decomposition(a)
             a = r @ q
             is_eig, type_eig = zip(*self.check(a))
-            with open(self.log_file, 'a') as f_log:
-                f_log.write(f'=============\n')
-                f_log.write(f'{self.k_iter} th:\n')
-                f_log.write(f'Q:\n{q}\n')
-                f_log.write(f'R:\n{r}\n')
-                f_log.write(f'New A = R * Q:\n{a}\n')
-                f_log.write(f'Is eig:\n{is_eig}\n')
-                f_log.write(f'Type eig:\n{type_eig}\n')
+            if self.log_file:
+                with open(self.log_file, 'a') as f_log:
+                    f_log.write(f'=============\n')
+                    f_log.write(f'{self.k_iter} th:\n')
+                    f_log.write(f'Q:\n{q}\n')
+                    f_log.write(f'R:\n{r}\n')
+                    f_log.write(f'New A = R * Q:\n{a}\n')
+                    f_log.write(f'Is eig:\n{is_eig}\n')
+                    f_log.write(f'Type eig:\n{type_eig}\n')
             if all(is_eig):
                 if flag:
                     flag = False
