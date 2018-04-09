@@ -7,8 +7,8 @@ class Solver:
         self.eps = eps
         self.out_file = output_name
         self.log_file = log_name
-        with open(self.log_file, 'w'):
-            pass
+        if self.log_file:
+            open(self.log_file, 'w').close()
         self.area = (1, 3)
         self.x0 = 1.25
         self.lmbd = self.calc_lambda()
@@ -68,12 +68,13 @@ class Solver:
         elif all([np.sign(i) == 1 for i in y]):
             flag = 1
         else:
-            with open(self.log_file, 'a') as fl:
-                fl.write('Error: Derivative change sign\n')
+            if self.log_file:
+                with open(self.log_file, 'a') as fl:
+                    fl.write('Error: Derivative change sign\n')
             exit(-1)
 
         y = [abs(self.f_derivative(i)) for i in x]
-        return flag * 1 / np.max(y)
+        return flag / np.max(y)
 
     def iter_method(self):
         x_old = self.x0
