@@ -17,8 +17,8 @@ class Matrix:
     def __init__(self, input_name, output_name, log_name):
         self.out_file = output_name
         self.log_file = log_name
-        with open(log_name, 'w'):
-            pass
+        if log_name:
+            open(log_name, 'w').close()
         self.shape, self.matrix, self.b, self.eps = get_matrix(input_name)
         self.alpha, self.beta = self.equivalent_form()
         self.k_iter, self.x_iter = self.iter_solve()
